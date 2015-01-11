@@ -11,12 +11,12 @@
 
 
 
+// Set error log file.
+ini_set('error_log', '/var/www/log/error.log');
+
 
 
 // Global variables often cause issues and they're unnecessary. Delete them.
-
-// Display all globals.
-//var_export(array_keys($GLOBALS));
 
 $server  = $_SERVER;
 $url_path = $server['REQUEST_URI'] ? $server['REQUEST_URI'] : $server['REDIRECT_URL'];
@@ -43,11 +43,7 @@ $_ENV     = null;
 
 
 
-
-
 // Register autoloader.
-
-
 
 
 
@@ -57,20 +53,24 @@ require_once 'lib/util.php';
 
 
 
-
-
 // Route.
 
-if (match('^(/)?$', $url_path)) {
+try {
 
-   require_once 'app/controllers/homepage.php';
-   \Controller\HomePage::index($post);
+   if (match('^(/)?$', $url_path)) {
 
-} else if (match('abc', $url_path)) {
+      require_once 'app/controllers/homepage.php';
+      \Controller\HomePage::index($post);
+
+   } else if (match('abc', $url_path)) {
 
 
 
-} else {
+   } else {
+
+      require_once 'public/404.html';
+   }
+} catch (PregException $e) {
 
    require_once 'public/404.html';
 }

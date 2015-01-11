@@ -1,6 +1,6 @@
 <VirtualHost *:80>
 
-  Include /etc/apache2/php-experiment-common.conf
+  Include /etc/apache2/common.conf
 
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 
