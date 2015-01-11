@@ -51,14 +51,22 @@ $_ENV     = null;
 
 
 
+// Require utility functions.
+
+require_once 'lib/util.php';
+
+
+
+
+
 // Route.
 
-if (preg_match('/^(\/)?$/', $url_path)) {
+if (match('^(/)?$', $url_path)) {
 
    require_once 'app/controllers/homepage.php';
-   \Controller\HomePage::start($post);
+   \Controller\HomePage::index($post);
 
-} else if (preg_match('/abc/', $url_path)) {
+} else if (match('abc', $url_path)) {
 
 
 
