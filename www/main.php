@@ -55,7 +55,8 @@ $_ENV     = null;
 
 if (preg_match('/^(\/)?$/', $url_path)) {
 
-   require_once 'app/views/index.php';
+   require_once 'app/controllers/homepage.php';
+   \Controller\HomePage::start($post);
 
 } else if (preg_match('/abc/', $url_path)) {
 
@@ -65,5 +66,3 @@ if (preg_match('/^(\/)?$/', $url_path)) {
 
    require_once 'public/404.html';
 }
-
-?>
