@@ -4,20 +4,27 @@
 
 class PregException extends Exception {
 
+   private static $pcre_constants;
+
    public function __construct($method, $pattern) {
 
-      $defined_constants = get_defined_constants(true);
-      $defined_constants = array_flip($defined_constants['pcre']);
-      $preg_error = $defined_constants[preg_last_error()];
+      if (empty(self::$pcre_constants)) {
 
-      $msg = __CLASS__." in function $method $preg_error $pattern";
+         $defined_constants = get_defined_constants(true);
+         self::$pcre_constants = array_flip($defined_constants['pcre']);
+      }
+
+
+      $preg_error = self::$pcre_constants[preg_last_error()];
+
+      $msg = __CLASS__." in $method $preg_error $pattern";
 
       error_log($msg);
       parent::__construct($msg);
    }
 }
 
-function match($pattern, $str) {
+function match($pattern, $str, $method) {
 
    $pattern = '/'.preg_replace('/\//', '\\/', $pattern).'/';
    $value = preg_match($pattern, $str);
@@ -25,7 +32,7 @@ function match($pattern, $str) {
    if ($value === false) {
 
       //throw new \Util\PregException();
-      throw new PregException(__METHOD__, $pattern);
+      throw new PregException($method, $pattern);
    }
 
    return $value;

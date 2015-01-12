@@ -57,12 +57,12 @@ require_once 'lib/util.php';
 
 try {
 
-   if (match('^(/)?$', $url_path)) {
+   if (match('^(/)?$', $url_path, __FILE__)) {
 
       require_once 'app/controllers/homepage.php';
       \Controller\HomePage::index($post);
 
-   } else if (match('abc', $url_path)) {
+   } else if (match('abc', $url_path, __FILE__)) {
 
 
 
