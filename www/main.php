@@ -11,6 +11,10 @@
 
 
 
+use \App\Controllers;
+
+
+
 // Set error log file.
 ini_set('error_log', '/var/www/log/error.log');
 
@@ -45,6 +49,8 @@ $_ENV     = null;
 
 // Register autoloader.
 
+spl_autoload_register();
+
 
 
 // Require utility functions.
@@ -59,8 +65,7 @@ try {
 
    if (match('^(/)?$', $url_path, __FILE__)) {
 
-      require_once 'app/controllers/homepage.php';
-      \Controller\HomePage::index($post);
+      Controllers\HomePage::index($post);
 
    } else if (match('abc', $url_path, __FILE__)) {
 
@@ -70,7 +75,7 @@ try {
 
       require_once 'public/404.html';
    }
-} catch (PregException $e) {
+} catch (\Lib\PregException $e) {
 
    require_once 'public/404.html';
 }
