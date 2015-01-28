@@ -34,4 +34,32 @@ class Regex {
          return $pattern;
       }
    }
+
+   /**
+    * Like preg_match but you pass it a regex like 'abc' rather than '/abc/', and
+    * it handles errors for you.
+    *
+    * @param string $pattern like 'abc', not '/abc/'
+    * @param string $str
+    * @return string
+    * @throws Lib\PregException
+    */
+   public static function match($pattern, $str) {
+
+      $regex = new Regex($pattern);
+
+      $value = preg_match($regex, $str);
+
+      if ($value === false) {
+
+         throw new PregException($pattern);
+      }
+
+      return $value;
+   }
+
+   public function match_this($str) {
+
+      return self::match($this->pattern, $str);
+   }
 }

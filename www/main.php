@@ -10,6 +10,7 @@
 //
 
 use App\Controllers;
+use Lib\Regex;
 
 
 
@@ -51,21 +52,15 @@ spl_autoload_register();
 
 
 
-// Require utility functions.
-
-require_once 'lib/util.php';
-
-
-
 // Route.
 
 try {
 
-   if (match('^(/)?$', $url_path)) {
+   if (Regex::match('^(/)?$', $url_path)) {
 
       Controllers\HomePage::index($post);
 
-   } else if (match('abc', $url_path)) {
+   } else if (Regex::match('abc', $url_path)) {
 
 
 

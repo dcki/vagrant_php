@@ -17,7 +17,7 @@ class PregException extends \Exception {
       $preg_error = self::$pcre_constants[preg_last_error()];
 
       $msg = __CLASS__." $preg_error using pattern $pattern\n";
-      $msg .= stack_trace();
+      $msg .= StackTrace::stack_trace();
 
       error_log($msg);
       parent::__construct($msg);
