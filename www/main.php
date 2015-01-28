@@ -9,9 +9,7 @@
 // Created January 2015
 //
 
-
-
-use \App\Controllers;
+use App\Controllers;
 
 
 
@@ -63,11 +61,11 @@ require_once 'lib/util.php';
 
 try {
 
-   if (match('^(/)?$', $url_path, __FILE__)) {
+   if (match('^(/)?$', $url_path, __FILE__, __LINE__)) {
 
       Controllers\HomePage::index($post);
 
-   } else if (match('abc', $url_path, __FILE__)) {
+   } else if (match('abc', $url_path, __FILE__, __LINE__)) {
 
 
 
@@ -75,7 +73,7 @@ try {
 
       require_once 'public/404.html';
    }
-} catch (\Lib\PregException $e) {
+} catch (Lib\PregException $e) {
 
    require_once 'public/404.html';
 }
