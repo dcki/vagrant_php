@@ -52,6 +52,26 @@ spl_autoload_register();
 
 
 
+
+$user = 'root';
+$pass = 'test1234';
+try {
+   $dbh = new PDO('mysql:host=localhost', $user, $pass);
+   $dbh->query('CREATE DATABASE Test');
+   $dbh->query('CREATE TABLE Test.Test (id int, name text)');
+   $dbh->query("INSERT INTO Test.Test VALUES (1, 'Bob')");
+   $dbh->query("INSERT INTO Test.Test VALUES (2, 'Marley')");
+   foreach($dbh->query('SELECT * from Test.Test') as $row) {
+      echo $row['id'].' '.$row['name'].'<br>';
+   }
+   $dbh->query('DROP DATABASE Test');
+   $dbh = null;
+} catch (PDOException $e) {
+   echo "Error!: " . $e->getMessage() . "<br/>";
+   die();
+}
+echo '<br>';
+
 // Route.
 
 try {

@@ -21,8 +21,8 @@ rm /etc/apache2/httpd.conf
 ln -s /vagrant/apache/httpd.conf /etc/apache2/httpd.conf
 
 # Install MySQL Server in a Non-Interactive mode. Default root password will be empty.
-echo "mysql-server-5.6 mysql-server/root_password password ''" | sudo debconf-set-selections
-echo "mysql-server-5.6 mysql-server/root_password_again password ''" | sudo debconf-set-selections
+echo "mysql-server-5.6 mysql-server/root_password password test1234" | sudo debconf-set-selections
+echo "mysql-server-5.6 mysql-server/root_password_again password test1234" | sudo debconf-set-selections
 apt-get install -y mysql-server libapache2-mod-auth-mysql php5-mysql
 
 # Install PHP.
