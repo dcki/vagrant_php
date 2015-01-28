@@ -7,9 +7,9 @@ class Regex {
    private $regex;
    private $pattern;
 
-   public function __construct($pattern, $method, $line) {
+   public function __construct($pattern) {
    // Implement http://php.net/manual/en/language.oop5.typehinting.php#83442
-   //public function __construct(string $pattern, string $method, string $line) {
+   //public function __construct(string $pattern) {
 
       $this->pattern = $pattern;
 
@@ -17,7 +17,7 @@ class Regex {
 
       if ($pattern2 === null) {
 
-         throw new PregException($pattern, $method, $line);
+         throw new PregException($pattern);
       }
 
       $this->regex = '/'.$pattern2.'/';

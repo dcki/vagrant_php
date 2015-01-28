@@ -61,11 +61,11 @@ require_once 'lib/util.php';
 
 try {
 
-   if (match('^(/)?$', $url_path, __FILE__, __LINE__)) {
+   if (match('^(/)?$', $url_path)) {
 
       Controllers\HomePage::index($post);
 
-   } else if (match('abc', $url_path, __FILE__, __LINE__)) {
+   } else if (match('abc', $url_path)) {
 
 
 
