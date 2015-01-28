@@ -8,8 +8,6 @@ class Regex {
    private $pattern;
 
    public function __construct($pattern) {
-   // Implement http://php.net/manual/en/language.oop5.typehinting.php#83442
-   //public function __construct(string $pattern) {
 
       $this->pattern = $pattern;
 
