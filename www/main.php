@@ -61,8 +61,9 @@ try {
    $dbh->query('CREATE TABLE Test.Test (id int, name text)');
    $dbh->query("INSERT INTO Test.Test VALUES (1, 'Bob')");
    $dbh->query("INSERT INTO Test.Test VALUES (2, 'Marley')");
+   $dbh->query("INSERT INTO Test.Test VALUES (3, NULL)");
    foreach($dbh->query('SELECT * from Test.Test') as $row) {
-      echo $row['id'].' '.$row['name'].'<br>';
+      echo var_export($row['id'], true).' '.var_export($row['name'], true).'<br>';
    }
    $dbh->query('DROP DATABASE Test');
    $dbh = null;
