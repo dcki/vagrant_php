@@ -14,11 +14,6 @@ use Lib\Regex;
 
 
 
-// Set error log file.
-ini_set('error_log', '/var/www/log/error.log');
-
-
-
 // Global variables often cause issues and they're unnecessary. Delete them.
 
 $server  = $_SERVER;
@@ -52,44 +47,56 @@ spl_autoload_register();
 
 
 
-
-$user = 'root';
-$pass = 'test1234';
 try {
-   $dbh = new PDO('mysql:host=localhost', $user, $pass);
-   $dbh->query('CREATE DATABASE Test');
-   $dbh->query('CREATE TABLE Test.Test (id int, name text)');
-   $dbh->query("INSERT INTO Test.Test VALUES (1, 'Bob')");
-   $dbh->query("INSERT INTO Test.Test VALUES (2, 'Marley')");
-   $dbh->query("INSERT INTO Test.Test VALUES (3, NULL)");
-   foreach($dbh->query('SELECT * from Test.Test') as $row) {
-      echo var_export($row['id'], true).' '.var_export($row['name'], true).'<br>';
+
+   // Remove trailing slash from url, except for homepage.
+
+   if (!Regex::match('^/$', $url_path) && Regex::match('/$', $url_path)) {
+
+      $new_path = rtrim($url_path, '/');
+
+      if (!empty($new_path)) {
+
+         Lib\Redirect::permanent_redirect($new_path);
+
+      } else {
+
+         // There is no page located at thissite.com///
+         require_once 'public/404.html';
+      }
    }
-   $dbh->query('DROP DATABASE Test');
-   $dbh = null;
-} catch (PDOException $e) {
-   echo "Error!: " . $e->getMessage() . "<br/>";
-   die();
-}
-echo '<br>';
 
-// Route.
 
-try {
 
-   if (Regex::match('^(/)?$', $url_path)) {
+   // Route.
+
+   if (Regex::match('^/$', $url_path)) {
 
       Controllers\HomePage::index($post);
 
-   } else if (Regex::match('abc', $url_path)) {
+   } else if (Regex::match('^/test(/|$)', $url_path)) {
 
+      Controllers\Test::route($url_path);
 
+   } else if (Regex::match('^/abc$', $url_path)) {
+
+      echo 'You found the mystery page! :D <a href="/">Home</a>';
 
    } else {
 
       require_once 'public/404.html';
    }
+
 } catch (Lib\PregException $e) {
 
-   require_once 'public/404.html';
+   echo 'Sorry, there was an error. <a href="/">Home</a>';
+   // PregException logs itself.
 }
+
+// A blank page should never be returned. Need to come up with a better
+// templating and routing system to guarantee we always find a page or send
+// a 404. On the other hand, preventing all errors always is not possible.
+// Should probably extend the Exception class to log its own errors and
+// always catch that here. Also need to print an error if there is a
+// catchable fatal error. Should probably also send the correct header for
+// server error.

@@ -4,6 +4,8 @@
       <meta charset="utf-8">
    </head>
    <body>
+      <h1><a href="/">Homepage</a></h1>
+      <h2><a href="/test">Tests</a></h2>
       <img src="/public/images/cat.png">
       <form action="/" method="post">
          <label for="name_input">What is your name?</label>
