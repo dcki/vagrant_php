@@ -5,7 +5,8 @@
    </head>
    <body>
       <h1><a href="/">Homepage</a></h1>
-      <h2><a href="/test">Tests</a></h2>
+      <p><a href="/test">Tests</a></p>
+      <p><a href="/public/images/PHP%20IO.png">PHP IO</a></p>
       <img src="/public/images/cat.png">
       <form action="/" method="post">
          <label for="name_input">What is your name?</label>
