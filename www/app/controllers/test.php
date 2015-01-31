@@ -29,7 +29,7 @@ class Test {
 
       if (Regex::match('^/test$', $url_path)) {
 
-         echo 'test homepage';
+         echo '<a href="/test/database">database</a>';
 
       } else if (Regex::match('^/test/database', $url_path)) {
 
