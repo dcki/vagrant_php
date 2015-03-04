@@ -57,6 +57,10 @@ class Test {
 
          require_once 'app/views/index.php';
 
+      } else if (Regex::match('^/test/caching$', $url_path)) {
+
+         require_once 'app/views/caching.php';
+
       } else {
 
          require_once 'public/404.html';
