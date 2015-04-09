@@ -7,7 +7,11 @@ echo "America/Los_Angeles" > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
 # Install Apache.
-apt-get install -y apache2
+# RUNLEVEL=1 should prevent automatic start of Apache after install.
+RUNLEVEL=1 apt-get install -y apache2
+# This is an extra precaution to prevent Apache from running before it is
+# correctly configured.
+service apache2 stop
 rm -rf /var/www
 ln -fs /vagrant/www /var/www
 rm /etc/apache2/sites-enabled/*
@@ -27,7 +31,6 @@ apt-get install -y mysql-server libapache2-mod-auth-mysql php5-mysql
 
 # Install PHP.
 apt-get install -y php5 libapache2-mod-php5 php5-mcrypt
-sed -i 's/DirectoryIndex/DirectoryIndex index.php/g' /etc/apache2/mods-available/dir.conf
 
 # Enable the site.
 # If we enable the site earlier, while setting up, then everything in site
